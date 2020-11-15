@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 const { createServer } = require('./client.js')
 
 createServer({
@@ -9,5 +11,5 @@ createServer({
   'online-mode': false,
   'disable-op-command': false,
   'ops': [ 'Venk', 'Waxtz' ],
-  'plugins': { test: {} }
+  'plugins': { cosmetics: {} }
 })

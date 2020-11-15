@@ -1,10 +1,21 @@
 const Vec3 = require('vec3')
 
 module.exports.player = (player, server) => {
+  let x, y, z, yaw, pitch
+  const db = require('better-sqlite3')('MCScript.db')
+  const row = db.prepare('SELECT * FROM levels WHERE name = ?').get("level")
+  console.log(row.name + " " + row.spawn)
+  var coords = row.spawn.split(' ')
+  x = coords[0]
+  y = coords[1]
+  z = coords[2]
+  yaw = coords[3]
+  pitch = coords[4]
+
   player.spawn = () => {
-    player.pos = new Vec3(1 * 32, 34 * 32, 1 * 32)
-    player.yaw = 0
-    player.pitch = 0
+    player.pos = new Vec3(x, y, z)
+    player.yaw = yaw
+    player.pitch = pitch
     player.op = true
     player.cpe = false
     player.supported_extensions = []

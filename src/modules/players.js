@@ -1,6 +1,6 @@
 module.exports.server = (server) => {
   server.players = []
-  server.entityID = 0
+  server.entityID = 1 // 0 is reserved for console
 
   server.getPlayer = (name) => {
     const found = server.players.filter((pl) => pl.username === name)
