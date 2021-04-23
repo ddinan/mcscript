@@ -9,7 +9,7 @@ var methods = {
                 const user = server.getPlayer(params.toString().split(' ')[0].trim())
                 let reason
 
-                if (params.toString().split(' ')[1] !== null) reason = params.toString().split(' ')[1].trim()
+                if (params.toString().split(' ')[1] !== null) reason = params.toString().split(' ')[1]
                 if (!user) {
                     return `${server.color.red}Player not found`
                 } else {
