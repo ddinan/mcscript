@@ -1,6 +1,6 @@
-var methods = {
+module.exports = {
     AddCommand: function(player, server) {
-        player.commands.add({
+        server.commands.add({
             base: 'model',
             info: 'change your model',
             usage: '/model <model>',
@@ -13,6 +13,4 @@ var methods = {
             }
         })
     }
-}
-
-module.exports = methods;
+};

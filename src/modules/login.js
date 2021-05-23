@@ -9,7 +9,6 @@ const Logger = require('js-logger')
 const crypto = require('crypto')
 const MD5 = require('md5.js')
 const zlib = require('zlib')
-const Command = require('../command')
 
 module.exports.server = (server, options) => {
     server.pid = process.pid
@@ -32,7 +31,9 @@ module.exports.server = (server, options) => {
             server.log.error(`Oops! Something went wrong, ${error}`)
         })
         .on('listening', () => {
-            server.log.info(`Started MCScript server on *:${server._server.socketServer.address().port}`)
+            const host = server._server.socketServer.address()
+            if (host.address === "0.0.0.0") host.address = "127.0.0.1"
+            server.log.info(`Started MCScript server on ${host.address}:${host.port}`)
         })
         ._server.on('connection', (client) => {
             client.on('error', error => server.emit('clientError', client, error))
@@ -42,7 +43,6 @@ module.exports.server = (server, options) => {
         if (client.socket.listeners('end').length === 0) return
         const player = new EventEmitter()
         player._client = client
-        player.commands = new Command({})
 
         Object.keys(plugins)
             .filter(pluginName => plugins[pluginName].player !== undefined)

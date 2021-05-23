@@ -1,6 +1,6 @@
-var methods = {
+module.exports = {
     AddCommand: function(player, server) {
-        player.commands.add({
+        server.commands.add({
             base: 'say',
             info: 'Broadcasts a message to all players as the server.',
             usage: '/say <message>',
@@ -16,6 +16,4 @@ var methods = {
             }
         })
     }
-}
-
-module.exports = methods;
+};

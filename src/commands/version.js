@@ -1,6 +1,6 @@
-var methods = {
+module.exports = {
     AddCommand: function(player, server) {
-        player.commands.add({
+        server.commands.add({
             base: 'version',
             info: 'get the version of the server',
             usage: '/version',
@@ -9,6 +9,4 @@ var methods = {
             }
         })
     }
-}
-
-module.exports = methods;
+};

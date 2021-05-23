@@ -1,6 +1,6 @@
-var methods = {
+module.exports = {
     AddCommand: function(player, server) {
-        player.commands.add({
+        server.commands.add({
             base: 'setspawn',
             info: 'Sets the spawnpoint of the current map.',
             usage: '/spawnpoint',
@@ -16,6 +16,4 @@ var methods = {
             }
         })
     }
-}
-
-module.exports = methods;
+};

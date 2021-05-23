@@ -1,6 +1,6 @@
-var methods = {
+module.exports = {
     AddCommand: function(player, server) {
-        player.commands.add({
+        server.commands.add({
             base: 'save',
             info: 'save the world',
             usage: '/save',
@@ -13,6 +13,4 @@ var methods = {
             }
         })
     }
-}
-
-module.exports = methods;
+};

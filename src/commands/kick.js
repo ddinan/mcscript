@@ -1,6 +1,6 @@
-var methods = {
+module.exports = {
     AddCommand: function(player, server) {
-        player.commands.add({
+        server.commands.add({
             base: 'kick',
             info: 'kick a player from the server',
             usage: '/kick <player> [reason]',
@@ -22,6 +22,4 @@ var methods = {
             }
         })
     }
-}
-
-module.exports = methods;
+};

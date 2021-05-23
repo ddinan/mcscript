@@ -1,6 +1,6 @@
-var methods = {
+module.exports = {
     AddCommand: function(player, server) {
-        player.commands.add({
+        server.commands.add({
             base: 'op',
             info: 'give a player operator permissions',
             usage: '/op <username>',
@@ -20,6 +20,4 @@ var methods = {
             }
         })
     }
-}
-
-module.exports = methods;
+};

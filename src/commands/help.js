@@ -1,6 +1,6 @@
-var methods = {
+module.exports = {
     AddCommand: function(player, server) {
-        player.commands.add({
+        server.commands.add({
             base: 'help',
             info: 'to show all commands',
             usage: '/help [page:command name]',
@@ -19,7 +19,7 @@ var methods = {
                 let page = _ref.page
 
                 if (page < 0) return 'Page # must be >= 1'
-                let hash = player.commands.uniqueHash
+                let hash = server.commands.uniqueHash
 
                 let PAGE_LENGTH = 7
 
@@ -55,6 +55,4 @@ var methods = {
             }
         })
     }
-}
-
-module.exports = methods;
+};

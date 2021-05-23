@@ -1,7 +1,7 @@
 module.exports.player = (player, server) => {
     player._client.on('message', (packet) => {
         if (packet.message.split('')[0] === '/') {
-            player.handleCommand(packet.message)
+            server.handleCommand(packet.message)
         } else {
             player.emit('chat', {
                 message: packet.message

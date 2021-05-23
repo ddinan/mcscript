@@ -1,6 +1,6 @@
-var methods = {
+module.exports = {
     AddCommand: function(player, server) {
-        player.commands.add({
+        server.commands.add({
             base: 'tp',
             info: 'teleport a player to another player',
             usage: '/tp <player>',
@@ -17,6 +17,4 @@ var methods = {
             }
         })
     }
-}
-
-module.exports = methods;
+};
