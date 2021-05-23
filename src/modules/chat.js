@@ -9,10 +9,10 @@ module.exports.player = (player, server) => {
             server.log.info(`<${player.username}> ${packet.message}`)
 
             if (packet.message.length >= 57) {
-                server.broadcast(`<${player.username}> ${packet.message.split('%').join('&')}`)
+                server.broadcast(`<${player.nick}&f> ${packet.message.split('%').join('&')}`)
                 server.broadcast(`> ${packet.message.split('').splice(56, packet.message.split('').length).join('')}`)
             } else {
-                server.broadcast(`<${player.username}> ${packet.message.split('%').join('&')}`)
+                server.broadcast(`<${player.nick}&f> ${packet.message.split('%').join('&')}`)
             }
         }
     })

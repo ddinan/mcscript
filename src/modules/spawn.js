@@ -70,6 +70,52 @@ module.exports.player = (player, server) => {
         server.log.info(`${player.username} joined the game`)
         player.chat(`${server.color.gray}Welcome ${server.color.green}${player._client.username}${server.color.gray}!`)
 
+        const path = './Players.db'
+
+        const sql = require('better-sqlite3');
+        const createTable = "CREATE TABLE IF NOT EXISTS players ('username' VARCHAR, 'nick' VARCHAR, 'title' VARCHAR, 'model' VARCHAR, 'firstJoin' TIMESTAMP, 'lastJoin' TIMESTAMP)"
+
+        let db = new sql(path, sql.OPEN_READWRITE, (err) => {
+            if (err) {
+                console.error(err.message);
+            }
+            verbose: console.log
+        })
+
+        db.exec(createTable)
+        insertData()
+
+        function insertData() {
+            const prepare = db.prepare('INSERT INTO players (username, nick, title, model, firstJoin, lastJoin) VALUES (@username, @nick, @model, @title, @firstJoin, @lastJoin)');
+
+            const insert = db.transaction((players) => {
+                for (const pl of players) prepare.run(pl)
+            });
+
+            var now = new Date();
+
+            insert([{
+                username: player.username,
+                nick: "",
+                title: "",
+                model: "",
+                firstJoin: now.toISOString().slice(0, 19).replace('T', ' '),
+                lastJoin: now.toISOString().slice(0, 19).replace('T', ' ')
+            }, ]);
+
+            console.log(`Updated database file (Players.db)`)
+
+            const database = require('better-sqlite3')('Players.db')
+            const row = database.prepare('SELECT * FROM players WHERE username = ?').get(player.username)
+
+            player.nick = row.nick
+            player.model = row.model
+            player._client.write('change_model', {
+                entity_id: -1,
+                model_name: row.model.replace(':', '|')
+            })
+        }
+
         server['online_players']++
         server.entityID++
     }

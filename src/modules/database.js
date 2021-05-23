@@ -1,26 +1,34 @@
+const fs = require('fs')
+
+const serverDBFile = './MCScript.db'
+const playerDBFile = './Players.db'
+
+const sql = require('better-sqlite3');
+
 module.exports.server = (server) => {
-    const fs = require('fs')
-
-    const path = '../MCScript.db'
-
-    const sql = require('better-sqlite3');
-    const createTable = "CREATE TABLE IF NOT EXISTS levels ('name' varchar, 'spawn' varchar)"
-
-    const file = './MCScript.db';
-    let db = new sql(file, sql.OPEN_READWRITE, (err) => {
+    let serverDB = new sql(serverDBFile, sql.OPEN_READWRITE, (err) => {
         if (err) {
             console.error(err.message);
         }
         verbose: console.log
     })
 
-    db.exec(createTable)
+    let playerDB = new sql(playerDBFile, sql.OPEN_READWRITE, (err) => {
+        if (err) {
+            console.error(err.message);
+        }
+        verbose: console.log
+    })
+
+    // Create table if it does not exist
+    serverDB.exec("CREATE TABLE IF NOT EXISTS levels ('name' varchar, 'spawn' varchar)")
+
     insertData()
 
     function insertData() {
-        const prepare = db.prepare('INSERT INTO levels (name, spawn) VALUES (@name, @spawn)');
+        const prepare = serverDB.prepare('INSERT INTO levels (name, spawn) VALUES (@name, @spawn)');
 
-        const insert = db.transaction((levels) => {
+        const insert = serverDB.transaction((levels) => {
             for (const level of levels) prepare.run(level)
         });
 
@@ -31,6 +39,6 @@ module.exports.server = (server) => {
             spawn: coords
         }, ]);
 
-        console.log(`Generated database file (MCScript.db)`)
+        console.log(`Loaded database file (MCScript.db)`)
     }
 }
