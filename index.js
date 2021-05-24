@@ -13,11 +13,16 @@ createServer({
     'name': config.general.name,
     'motd': config.general.motd,
     'max-players': config.general.maxPlayers,
-    'public': config.public,
-    'online-mode': config.online,
+    'public': config.general.public,
+    'online-mode': config.general.online,
     'disable-op-command': config.disableOp,
-    'ops': config.ops,
+    'ops': config.general.ops,
     'plugins': {
-        cosmetics: {}
-    }
+        cosmetics: {},
+        IRC: {}
+    },
+    'irc-channel': config.IRC.channel,
+    'irc-password': config.IRC.password,
+    'irc-server': config.IRC.server,
+    'irc-nick': config.IRC.nick,
 })
