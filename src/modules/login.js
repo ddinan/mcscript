@@ -71,6 +71,7 @@ module.exports.player = (player, server, settings) => {
         player.verification_key = player._client.verification_key
         player.id = server.entityID
         player.username = player._client.username
+        player.ip = player._client.socket.remoteAddress
 
         server.log.info(`${player.username} [/${player._client.socket.remoteAddress}:${player._client.socket.remotePort}] logged in with entity id ${player.id}`)
 
