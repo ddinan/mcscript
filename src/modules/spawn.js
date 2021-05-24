@@ -24,7 +24,12 @@ module.exports.player = (player, server) => {
         if (player.cpe) {
             player._client.write('ext_info', {
                 app_name: 'MCScript',
-                extension_count: 0
+                extension_count: 1
+            })
+
+            player._client.write('ext_entry', {
+                ext_name: 'HeldBlock',
+                version: 1
             })
         }
 

@@ -2,6 +2,7 @@ module.exports.player = (player, server) => {
     player._client.on('position', (packet) => {
         player.positionUpdate(packet.x, packet.y, packet.z)
         player.orientationUpdate(packet.yaw, packet.pitch)
+        player.heldBlock = packet.player_id
     })
 
     player.positionUpdate = (x, y, z) => {
