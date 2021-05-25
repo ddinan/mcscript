@@ -31,6 +31,7 @@ module.exports.player = (player, server) => {
         } catch (err) {
             if (err) {
                 player.chat(`${server.color.red}Error: ${err.message}`)
+                console.log(`Error: ${err.stack}`)
             } else {
                 setTimeout(() => {
                     throw err

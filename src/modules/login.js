@@ -26,11 +26,9 @@ module.exports.server = (server, options) => {
         }, 500)
     })
 
-    server
-        .on('error', (error) => {
+    server.on('error', (error) => {
             server.log.error(`Oops! Something went wrong, ${error}`)
-        })
-        .on('listening', () => {
+        }).on('listening', () => {
             const host = server._server.socketServer.address()
             if (host.address === "0.0.0.0") host.address = "127.0.0.1"
             server.log.info(`Started MCScript server on ${host.address}:${host.port}`)
@@ -106,6 +104,21 @@ module.exports.player = (player, server, settings) => {
                 percent_complete: i === 0 ? 0 : Math.ceil(i / compressedMap.length * 100)
             })
         }
+
+        player.sendEnvColor = function sendEnvColor(variable, r, g, b) {
+            player._client.write('env_set_color', {
+                variable: variable,
+                red: r,
+                green: g,
+                blue: b
+            })
+        }
+
+        //player.sendEnvColor(0, skyR, skyG, skyB)
+        //player.sendEnvColor(1, cloudR, cloudG, cloudB)
+        //player.sendEnvColor(2, fogR, fogG, fogB)
+        //player.sendEnvColor(3, shadowR, shadowG, shadowB)
+        //player.sendEnvColor(4, sunlightR, sunlightG, sunlightB)
 
         player._client.write('level_finalize', {
             x_size: 256,
