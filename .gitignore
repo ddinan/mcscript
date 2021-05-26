@@ -59,6 +59,8 @@ typings/
 
 # next.js build output
 .next
+levels/**
 levels/*.dat
 levels/level.dat
 *.dat
+*.db
