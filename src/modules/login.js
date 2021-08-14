@@ -4,7 +4,7 @@ const {
 
 const EventEmitter = require('events').EventEmitter
 const requireIndex = require('requireindex')
-const plugins = requireIndex(join(__dirname))
+const modules = requireIndex(join(__dirname))
 const Logger = require('js-logger')
 const crypto = require('crypto')
 const MD5 = require('md5.js')
@@ -42,9 +42,9 @@ module.exports.server = (server, options) => {
         const player = new EventEmitter()
         player._client = client
 
-        Object.keys(plugins)
-            .filter(pluginName => plugins[pluginName].player !== undefined)
-            .forEach(pluginName => plugins[pluginName].player(player, server, options))
+        Object.keys(modules)
+            .filter(moduleName => modules[moduleName].player !== undefined)
+            .forEach(moduleName => modules[moduleName].player(player, server, options))
 
         server.emit('newPlayer', player)
         player.emit('asap')
@@ -104,6 +104,8 @@ module.exports.player = (player, server, settings) => {
                 percent_complete: i === 0 ? 0 : Math.ceil(i / compressedMap.length * 100)
             })
         }
+
+        // Send env settings to the client
 
         player.sendEnvColor = function sendEnvColor(variable, r, g, b) {
             player._client.write('env_set_color', {

@@ -27,12 +27,18 @@ class MCServer extends EventEmitter {
     }
 
     connect(options) {
-        const modules = requireIndex(join(__dirname, 'src', 'modules'))
         this._server = createServer(options)
+        const modules = requireIndex(join(__dirname, 'src', 'modules'))
 
         Object.keys(modules)
             .filter(moduleName => modules[moduleName].server !== undefined)
             .forEach(moduleName => modules[moduleName].server(this, options))
+
+        const plugins = requireIndex(join(__dirname, '', 'plugins'))
+
+        Object.keys(plugins)
+            .filter(pluginName => plugins[pluginName].server !== undefined)
+            .forEach(pluginName => plugins[pluginName].server(this, options))
 
         this._server.on('error', error => this.emit('error', error))
         this._server.on('clientError', error => this.emit('error', error))

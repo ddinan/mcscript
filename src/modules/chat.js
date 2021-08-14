@@ -1,4 +1,5 @@
 module.exports.player = (player, server) => {
+    console.log(player)
     player._client.on('message', (packet) => {
         if (packet.message.split('')[0] === '/') {
             server.handleCommand(packet.message)
@@ -9,10 +10,10 @@ module.exports.player = (player, server) => {
             server.log.info(`<${player.username}> ${packet.message}`)
 
             if (packet.message.length >= 57) {
-                server.broadcast(`<${player.nick}&f> ${packet.message.split('%').join('&')}`)
+                server.broadcast(`<${player.nick.split('%').join('&')}&f> ${packet.message.split('%').join('&')}`)
                 server.broadcast(`> ${packet.message.split('').splice(56, packet.message.split('').length).join('')}`)
             } else {
-                server.broadcast(`<${player.nick}&f> ${packet.message.split('%').join('&')}`)
+                server.broadcast(`<${player.nick.split('%').join('&')}&f> ${packet.message.split('%').join('&')}`)
             }
         }
     })

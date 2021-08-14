@@ -18,8 +18,7 @@ createServer({
     'disable-op-command': config.disableOp,
     'ops': config.general.ops,
     'plugins': {
-        cosmetics: {},
-        IRC: {}
+        cosmetics: {}
     },
     'irc-channel': config.IRC.channel,
     'irc-password': config.IRC.password,

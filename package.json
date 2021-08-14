@@ -9,20 +9,24 @@
     "start": "node -r dotenv/config index.js"
   },
   "dependencies": {
-    "better-sqlite3": "^7.1.1",
+    "better-sqlite3": "^7.4.3",
+    "envfile": "^6.14.0",
     "geoip-lite": "^1.4.2",
     "irc": "^0.5.2",
     "js-logger": "^1.4.1",
+    "line-number": "^0.1.0",
+    "line-replace": "^2.0.1",
     "md5.js": "^1.3.4",
     "minecraft-classic-protocol": "^1.3.1",
     "minecraft-classic-protocol-extension": "^1.0.3",
     "node-fetch": "^2.6.1",
     "requireindex": "^1.2.0",
+    "var": "^0.4.0",
     "vec3": "^0.1.4"
   },
   "devDependencies": {
+    "dotenv": "^8.6.0",
     "jest": "^26.0.1",
-    "dotenv": "^8.2.0",
     "standard": "^14.3.4"
   }
 }
