@@ -4,9 +4,9 @@ module.exports = {
             base: 'nick',
             info: 'changes your nickname to <nick>',
             usage: '/nick <nick>',
-            action(nick) {
-                nick = nick.replace('%', '&')
-                player.chat("Your nick is currently: " + player.nick)
+            action(params) {
+                params = params.replace('%', '&')
+                if (params.length === 0) return player.chat("Your nick is currently: " + player.nick)
 
                 const path = './Players.db'
                 const sql = require('better-sqlite3');
@@ -21,11 +21,11 @@ module.exports = {
                 insertData()
 
                 function insertData() {
-                    db.exec(`UPDATE players SET nick = '${nick}' WHERE username = '${player.username}'`);
+                    db.exec(`UPDATE players SET nick = '${params}' WHERE username = '${player.username}'`);
 
                     console.log(`Updated database file (Players.db)`)
-                    player.nick = nick
-                    return player.chat(`${server.color.green}Changed your nick to ${nick}`)
+                    player.nick = params
+                    return player.chat(`${server.color.green}Changed your nick to ${params}`)
                 }
             }
         })

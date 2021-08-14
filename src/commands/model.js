@@ -4,14 +4,14 @@ module.exports = {
             base: 'model',
             info: 'changes your model to <model>',
             usage: '/model <model>',
-            action(model) {
+            action(params) {
+                params = params.replace('%', '&')
+                if (params.length === 0) return player.chat("Your model is currently: " + player.model)
+
                 player._client.write('change_model', {
                     entity_id: -1,
-                    model_name: model.replace(':', '|')
+                    model_name: params.replace(':', '|')
                 })
-
-                model = model.replace('%', '&')
-                player.chat("Your model is currently: " + player.model)
 
                 const path = './Players.db'
                 const sql = require('better-sqlite3');
@@ -26,11 +26,11 @@ module.exports = {
                 insertData()
 
                 function insertData() {
-                    db.exec(`UPDATE players SET model = '${model}' WHERE username = '${player.username}'`);
+                    db.exec(`UPDATE players SET model = '${params}' WHERE username = '${player.username}'`);
 
                     console.log(`Updated database file (Players.db)`)
-                    player.model = model.replace(':', '|')
-                    return player.chat(`${server.color.green}Changed your model to ${model}`)
+                    player.model = params.replace(':', '|')
+                    return player.chat(`${server.color.green}Changed your model to ${params}`)
                 }
             }
         })

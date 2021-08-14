@@ -5,8 +5,10 @@ module.exports = {
             info: 'give a player operator permissions',
             usage: '/op <username>',
             op: true,
-            action(username) {
-                const user = server.getPlayer(username.toString().split(' ')[0].trim())
+            action(params) {
+                if (params.length === 0) return `${server.color.red}No arguments specified.`
+
+                const user = server.getPlayer(params.toString().split(' ')[0].trim())
 
                 if (!user) return `${server.color.red}Player not found`
                 if (user.op !== true) user.op = true
@@ -16,7 +18,7 @@ module.exports = {
                 })
 
                 if (user !== player) user.chat(`${server.color.gray}You have been granted operator permissions`)
-                player.chat(`Opped ${username}`)
+                player.chat(`Opped ${params}`)
             }
         })
     }

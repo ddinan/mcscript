@@ -78,7 +78,7 @@ module.exports.player = (player, server) => {
         const path = './Players.db'
 
         const sql = require('better-sqlite3');
-        const createTable = "CREATE TABLE IF NOT EXISTS players ('username' VARCHAR, 'nick' VARCHAR, 'title' VARCHAR, 'model' VARCHAR, 'firstJoin' TIMESTAMP, 'lastJoin' TIMESTAMP)"
+        const createTable = "CREATE TABLE IF NOT EXISTS players ('username' VARCHAR, 'nick' VARCHAR, 'title' VARCHAR, 'model' VARCHAR, 'firstJoin' TIMESTAMP, 'lastJoin' TIMESTAMP, 'money' INT)"
 
         let db = new sql(path, sql.OPEN_READWRITE, (err) => {
             if (err) {
@@ -91,7 +91,7 @@ module.exports.player = (player, server) => {
         insertData()
 
         function insertData() {
-            const prepare = db.prepare('INSERT INTO players (username, nick, title, model, firstJoin, lastJoin) VALUES (@username, @nick, @model, @title, @firstJoin, @lastJoin)');
+            const prepare = db.prepare('INSERT INTO players (username, nick, title, model, firstJoin, lastJoin, money) VALUES (@username, @nick, @model, @title, @firstJoin, @lastJoin, @money)');
 
             const insert = db.transaction((players) => {
                 for (const pl of players) prepare.run(pl)
@@ -105,7 +105,8 @@ module.exports.player = (player, server) => {
                 title: "",
                 model: "",
                 firstJoin: now.toISOString().slice(0, 19).replace('T', ' '),
-                lastJoin: now.toISOString().slice(0, 19).replace('T', ' ')
+                lastJoin: now.toISOString().slice(0, 19).replace('T', ' '),
+                money: 0
             }, ]);
 
             console.log(`Updated database file (Players.db)`)
